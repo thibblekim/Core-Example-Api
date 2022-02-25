@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace UsersGroupsCoreApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/")]
     public class GroupController : ControllerBase
     {
 
@@ -18,8 +18,8 @@ namespace UsersGroupsCoreApi.Controllers
             _logger = logger;
         }
 
-        [HttpGet(Name = "GetGroups")]
-        public IEnumerable<object> Get()
+        [HttpGet("GetGroups")]
+        public IEnumerable<object> GetGroups()
         {
             var groupsData = new List<object>();
             try
@@ -40,15 +40,15 @@ namespace UsersGroupsCoreApi.Controllers
 
         }
 
-        [HttpGet(Name = "GetGroup")]
-        public object Get(int id)
+        [HttpGet("GetGroup")]
+        public object GetGroup(int id)
         {
             var group = _context.Groups.FirstOrDefault(x => x.GroupId == id);
             return JsonConvert.SerializeObject(group);
         }
 
-        [HttpPost(Name = "CreateGroup")]
-        public object Create(string groupData)
+        [HttpPost("CreateGroup")]
+        public object CreateGroup(string groupData)
         {
             try
             {
@@ -72,8 +72,8 @@ namespace UsersGroupsCoreApi.Controllers
         }
 
 
-        [HttpDelete(Name = "DeleteGroup")]
-        public bool Delete(int id)
+        [HttpDelete("DeleteGroup")]
+        public bool DeleteGroup(int id)
         {
             try
             {

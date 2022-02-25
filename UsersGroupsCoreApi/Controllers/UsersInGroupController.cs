@@ -4,7 +4,7 @@ using UsersGroupsCoreApi.Models;
 namespace UsersGroupsCoreApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("/api/")]
     public class UsersInGroupController : ControllerBase
     {
 
@@ -17,7 +17,7 @@ namespace UsersGroupsCoreApi.Controllers
             _logger = logger;
         }
 
-        [HttpPost(Name = "Add")]
+        [HttpPost("Add")]
         public bool Add(int id, string email)
         {
             try
@@ -47,7 +47,7 @@ namespace UsersGroupsCoreApi.Controllers
             }
         }
 
-        [HttpPost(Name = "Remove")]
+        [HttpPost("Remove")]
         public bool Remove(int id, string email)
         {
             try

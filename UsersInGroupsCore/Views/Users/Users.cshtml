@@ -1,0 +1,15 @@
+﻿@page
+@using UsersInGroupsCore.DTO
+@using UsersInGroupsCore.Controllers
+@model UserListModel
+@{
+    ViewData["Title"] = "List of users";
+}
+
+<div class="text-center">
+    <h1 class="display-1">Users</h1>    
+    @foreach (var x in Model.UserList)
+    {
+        <p>@x</p>
+    }
+</div>

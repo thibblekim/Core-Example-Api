@@ -19,17 +19,14 @@ namespace UsersGroupsCoreApi.Controllers
         }
 
         [HttpGet("GetUsers")]
-        public IEnumerable<object> GetUsers()
+        public IEnumerable<User> GetUsers()
         {
-            var usersData = new List<object>();
+            var usersData = new List<User>();
             try
             {
                 var users = _context.Users.ToList();
-
-                foreach (var user in users)
-                {
-                    usersData.Add(JsonConvert.SerializeObject(user));
-                }
+                                
+                usersData = users;
             }
             catch (Exception ex)
             {
@@ -48,20 +45,43 @@ namespace UsersGroupsCoreApi.Controllers
         }
 
         [HttpPost("CreateUser")]
-        public object Create(string userData)
+        public object Create(User user)
         {
             try
             {
-                var user = JsonConvert.DeserializeObject<User>(userData);
+                //var user = JsonConvert.DeserializeObject<User>(userData);
                 if (user != null)
                 {
                     _context.Users.Add(user);
                     _context.SaveChanges();
-                    return JsonConvert.SerializeObject(user);
+                    return user;
                 }
 
                 return string.Empty;
                 
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message, ex);
+            }
+
+            return string.Empty;
+        }
+
+        [HttpPut("EditUser")]
+        public object Edit(User user)
+        {
+            try
+            {                
+                if (user != null)
+                {
+                    _context.Users.Update(user);
+                    _context.SaveChanges();
+                    return user;
+                }
+
+                return string.Empty;
+
             }
             catch (Exception ex)
             {

@@ -26,3 +26,4 @@ C:\Projects\UsersInGroupsCore\UsersInGroupsCore\obj\Debug\net6.0\UsersInGroupsCo
 C:\Projects\UsersInGroupsCore\UsersInGroupsCore\obj\Debug\net6.0\ref\UsersInGroupsCore.dll
 C:\Projects\UsersInGroupsCore\UsersInGroupsCore\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Projects\UsersInGroupsCore\UsersInGroupsCore\obj\Debug\net6.0\UsersInGroupsCore.csproj.CopyComplete
+C:\Projects\UsersInGroupsCore\UsersInGroupsCore\obj\Debug\net6.0\scopedcss\Views\Shared\_Layout.cshtml.rz.scp.css

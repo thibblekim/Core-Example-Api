@@ -1,15 +1,97 @@
-﻿@page
-@using UsersInGroupsCore.DTO
+﻿@using UsersInGroupsCore.DTO
 @using UsersInGroupsCore.Controllers
-@model UserListModel
+@using UsersInGroupsCore.Services
+@model List<User>
 @{
-    ViewData["Title"] = "List of users";
+    //ViewData["Title"] = "List of users";
+}
+@{
+    Layout = "_Layout";
 }
 
 <div class="text-center">
-    <h1 class="display-1">Users</h1>    
-    @foreach (var x in Model.UserList)
+    <h2>Users</h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
+  Create user
+</button>    
+<br />
+<br />
+    <table class="table table-bordered">        
+    <tr>
+    <th>First Name</th>    
+    <th>Last Name</th>
+    <th>Email</th>
+    <th></th>
+    <th></th>
+    </tr>
+    @foreach (var x in Model)
     {
-        <p>@x</p>
+        <tr>
+        <td>@x.FirstName</td>
+        <td>@x.LastName</td>
+        <td>@x.Email</td>
+        <td><button class="btn btn-danger" title="Delete">@Html.ActionLink("X", "Delete", "Users",new {email = @x.Email }, new { @class = "no-link"})</button></td>
+        <td><button type="button" class="btn btn-primary btn-edit" data-bs-toggle="modal" data-bs-target="#editModal" data-first = "@x.FirstName" data-last="@x.LastName" data-mail="@x.Email">Edit</button><td> 
+
+        </tr>
     }
+    </table>
 </div>
+
+<div class="modal" tabindex="-1" id="createModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Create user</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/Users/Create" method="post">
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName">    
+    <label for="lastName" class="form-label">Last name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName">    
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email">    
+  </div>
+ 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" id="editModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edit user</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       <form action="/Users/Edit" method="post">
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First name</label>
+    <input type="text" class="form-control" id="firstName" name="firstName">    
+    <label for="lastName" class="form-label">Last name</label>
+    <input type="text" class="form-control" id="lastName" name="lastName">    
+    <label for="email" class="form-label">Email</label>
+    <input type="email" class="form-control" id="email" name="email" disabled>    
+  </div> 
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>        
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

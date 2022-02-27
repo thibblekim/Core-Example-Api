@@ -16,3 +16,8 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.no-link, .no-link:hover, .no-link:visited{
+    color:#ffff !important;
+    text-decoration:none !important;
+}

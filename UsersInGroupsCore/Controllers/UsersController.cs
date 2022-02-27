@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc;
 using UsersInGroupsCore.Services;
 using UsersInGroupsCore.DTO;
 
@@ -18,86 +16,44 @@ namespace UsersInGroupsCore.Controllers
         public ActionResult Users()
         {
             var users = _userService.GetUsers();
-            var model = new UserListModel();
-            model.UserList = users.Result;
-            return View(model);
-        }
-
-        // GET: UsersController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: UsersController/Create
-        public ActionResult Create()
-        {
-            return View();
+            
+            return View(users);
         }
 
         // POST: UsersController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userService.CreateUser(collection["firstName"], collection["lastName"], collection["email"]);
+            return RedirectToAction("Users", "Users");
         }
 
-        // GET: UsersController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: UsersController/Edit/5
+        // POST: UsersController/Edit
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(IFormCollection collection)
         {
-            try
+            var user = new User
             {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+                FirstName = collection["firstName"],
+                LastName = collection["lastName"],
+                Email = collection["email"]};
+            _userService.EditUser(user);
+            return RedirectToAction("Users", "Users");
         }
 
         // GET: UsersController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string email)
         {
-            return View();
-        }
-
-        // POST: UsersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userService.DeleteUser(email);
+            return RedirectToAction("Users", "Users");
         }
     }
 
-    public class UserListModel 
+    public class UserListModel
     {
-        public IEnumerable<User> UserList
+        public List<User> UserList
         {
-            get; set; 
+            get; set;
         }
     }
 
